@@ -29,6 +29,7 @@ class mywindow(QtWidgets.QMainWindow):
         )
         #Функция отображения таблицы без фильтра
         self.mainloaddata()
+        self.ui.AllButton.clicked.connect(self.mainloaddata)
         #Функция отображения таблицы для мужчин
         self.ui.MenButton.clicked.connect(self.mainloaddata_man)
         #Функция отображения таблицы для женщин

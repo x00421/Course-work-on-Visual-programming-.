@@ -19,7 +19,7 @@
   <widget class="QPushButton" name="MenButton">
    <property name="geometry">
     <rect>
-     <x>140</x>
+     <x>370</x>
      <y>20</y>
      <width>161</width>
      <height>31</height>
@@ -41,7 +41,7 @@
   <widget class="QPushButton" name="WomenButton">
    <property name="geometry">
     <rect>
-     <x>500</x>
+     <x>550</x>
      <y>20</y>
      <width>161</width>
      <height>31</height>
@@ -315,6 +315,28 @@
      <italic>true</italic>
      <bold>true</bold>
     </font>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="AllButton">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>20</y>
+     <width>161</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Black</family>
+     <pointsize>16</pointsize>
+     <weight>75</weight>
+     <italic>true</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Вся</string>
    </property>
   </widget>
  </widget>
