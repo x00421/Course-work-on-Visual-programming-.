@@ -4,6 +4,7 @@ import sys
 import openpyxl
 
 
+
 class mywindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(mywindow, self).__init__()
@@ -26,55 +27,81 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.MaintableWidget.setHorizontalHeaderLabels(
             ('Название', 'Размер', 'Цена', 'Остаток')
         )
-        #Функция отображения таблицы
+        #Функция отображения таблицы без фильтра
         self.mainloaddata()
+        #Функция отображения таблицы для мужчин
+        self.ui.MenButton.clicked.connect(self.mainloaddata_man)
+        #Функция отображения таблицы для женщин
+        self.ui.WomenButton.clicked.connect(self.mainloaddata_women)
+        
 
-    def mainloaddata(self):
-        clouses = [
-            {"name": "Синяя футболка", "size": "S",
-                "price": "New York", "number": "10"},
-            {"name": "Красная футболка", "size": "S",
-                "price": "New York", "number": "10"},
-            {"name": "Синяя футболка", "size": "S",
-                "price": "New York", "number": "10"},
-            {"name": "Красная футболка", "size": "S",
-                "price": "New York", "number": "10"},
-            {"name": "Синяя футболка", "size": "S",
-                "price": "New York", "number": "10"},
-            {"name": "Красная футболка", "size": "S",
-                "price": "New York", "number": "10"},
-            {"name": "Синяя футболка", "size": "S",
-                "price": "New York", "number": "10"},
-            {"name": "Красная футболка", "size": "S",
-                "price": "New York", "number": "10"},
-            {"name": "Синяя футболка", "size": "S",
-                "price": "New York", "number": "10"},
-            {"name": "Красная футболка", "size": "S",
-                "price": "New York", "number": "10"},
-            {"name": "Синяя футболка", "size": "S",
-                "price": "New York", "number": "10"},
-            {"name": "Красная футболка", "size": "S",
-                "price": "New York", "number": "10"},
-            {"name": "Синяя футболка", "size": "S",
-                "price": "New York", "number": "10"},
-            {"name": "Красная футболка", "size": "S",
-                "price": "New York", "number": "10"},
-
-        ]
+    def mainloaddata(self):#Функция отображения таблицы без фильтра
+        book=openpyxl.open("baza.xlsx")
+        sheet=book.worksheets[0]
+       
         row = 0
-        self.ui.MaintableWidget.setRowCount(len(clouses))
+        self.ui.MaintableWidget.setRowCount(sheet.max_row-1)
 
-        for person in clouses:
+        for i in range(2,sheet.max_row+1):
+            name=sheet['A'+str(i)].value
+            size=sheet["C"+str(i)].value
+            price=sheet["F"+str(i)].value
+            number=sheet["G"+str(i)].value
             self.ui.MaintableWidget.setItem(
-                row, 0, QtWidgets.QTableWidgetItem(person["name"]))
+                row, 0, QtWidgets.QTableWidgetItem(str(name)))
             self.ui.MaintableWidget.setItem(
-                row, 1, QtWidgets.QTableWidgetItem(person["size"]))
+                row, 1, QtWidgets.QTableWidgetItem(str(size)))
             self.ui.MaintableWidget.setItem(
-                row, 2, QtWidgets.QTableWidgetItem(person["price"]))
+                row, 2, QtWidgets.QTableWidgetItem(str(price)))
             self.ui.MaintableWidget.setItem(
-                row, 3, QtWidgets.QTableWidgetItem(person["number"]))
+                row, 3, QtWidgets.QTableWidgetItem(str(number)))
             row = row+1
+    
 
+    def mainloaddata_man(self):#Функция отображения таблицы для мужчин
+        book=openpyxl.open("baza.xlsx")
+        sheet=book.worksheets[1]
+       
+        row = 0
+        self.ui.MaintableWidget.setRowCount(sheet.max_row-1)
+
+        for i in range(2,sheet.max_row+1):
+            name=sheet['A'+str(i)].value
+            size=sheet["C"+str(i)].value
+            price=sheet["F"+str(i)].value
+            number=sheet["G"+str(i)].value
+            self.ui.MaintableWidget.setItem(
+                row, 0, QtWidgets.QTableWidgetItem(str(name)))
+            self.ui.MaintableWidget.setItem(
+                row, 1, QtWidgets.QTableWidgetItem(str(size)))
+            self.ui.MaintableWidget.setItem(
+                row, 2, QtWidgets.QTableWidgetItem(str(price)))
+            self.ui.MaintableWidget.setItem(
+                row, 3, QtWidgets.QTableWidgetItem(str(number)))
+            row = row+1
+    
+
+    def mainloaddata_women(self):#Функция отображения таблицы для Женщин
+        book=openpyxl.open("baza.xlsx")
+        sheet=book.worksheets[2]
+       
+        row = 0
+        self.ui.MaintableWidget.setRowCount(sheet.max_row-1)
+
+        for i in range(2,sheet.max_row+1):
+            name=sheet['A'+str(i)].value
+            size=sheet["C"+str(i)].value
+            price=sheet["F"+str(i)].value
+            number=sheet["G"+str(i)].value
+            self.ui.MaintableWidget.setItem(
+                row, 0, QtWidgets.QTableWidgetItem(str(name)))
+            self.ui.MaintableWidget.setItem(
+                row, 1, QtWidgets.QTableWidgetItem(str(size)))
+            self.ui.MaintableWidget.setItem(
+                row, 2, QtWidgets.QTableWidgetItem(str(price)))
+            self.ui.MaintableWidget.setItem(
+                row, 3, QtWidgets.QTableWidgetItem(str(number)))
+            row = row+1
 
 app = QtWidgets.QApplication([])
 application = mywindow()
