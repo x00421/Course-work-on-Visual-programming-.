@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_Main(object):
-    def setupUi(self, Main):
+    def setupUi(self, Main):        
         Main.setObjectName("Main")
         Main.resize(960, 540)
         Main.setAutoFillBackground(False)
