@@ -1,0 +1,1 @@
+self.ui.KatalogButton.clicked.connect(self.katalogwindow)

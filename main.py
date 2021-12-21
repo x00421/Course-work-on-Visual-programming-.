@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets
 from main_ui import Ui_Main  # импорт нашего сгенерированного файла
-
+from katalog import show
 import sys
 import openpyxl
 import time
@@ -41,6 +41,9 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.WomenButton.clicked.connect(self.mainloaddata_women)
         # Функция поиска
         self.ui.PoiskButton.clicked.connect(self.poisk)
+
+
+        self.ui.KatalogButton.clicked.connect(lambda: show(self))
 
         
         
