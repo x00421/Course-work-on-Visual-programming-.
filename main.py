@@ -24,13 +24,14 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.SizecomboBox.addItem("XXL")
 
         # Отвечает за Отображение колонок
-        self.ui.MaintableWidget.setColumnCount(4)
+        self.ui.MaintableWidget.setColumnCount(5)
         self.ui.MaintableWidget.setColumnWidth(0, 450)
         self.ui.MaintableWidget.setColumnWidth(1, 60)
-        self.ui.MaintableWidget.setColumnWidth(2, 130)
-        self.ui.MaintableWidget.setColumnWidth(3, 100)
+        self.ui.MaintableWidget.setColumnWidth(2, 100)
+        self.ui.MaintableWidget.setColumnWidth(3, 80)
+        self.ui.MaintableWidget.setColumnWidth(4, 45)
         self.ui.MaintableWidget.setHorizontalHeaderLabels(
-            ('Название', 'Размер', 'Цена', 'Остаток')
+            ('Название', 'Размер', 'Цена', 'Остаток',"*")
         )
         # Функция отображения таблицы без фильтра
         self.mainloaddata()
@@ -45,7 +46,13 @@ class mywindow(QtWidgets.QMainWindow):
 
         self.ui.KatalogButton.clicked.connect(lambda: show(self))
 
+        self.ui.TovarButton.clicked.connect(self.getData)#Получение данных из таблицы приложения
         
+        
+
+        
+        
+    
         
 
     def mainloaddata(self):  # Функция отображения таблицы без фильтра
@@ -70,6 +77,7 @@ class mywindow(QtWidgets.QMainWindow):
                 row, 2, QtWidgets.QTableWidgetItem(str(price)))
             self.ui.MaintableWidget.setItem(
                 row, 3, QtWidgets.QTableWidgetItem(str(number)))
+                
             row += 1
 
     def mainloaddata_man(self):  # Функция отображения таблицы для мужчин
@@ -198,6 +206,19 @@ class mywindow(QtWidgets.QMainWindow):
                                     row, 3, QtWidgets.QTableWidgetItem(str(number)))
                                 row = row+1
 
+    def getData(self):#Функция получения информации из таблицы
+        rows = self.ui.MaintableWidget.rowCount()
+        cols = self.ui.MaintableWidget.columnCount()
+        data = []
+        for row in range(rows):
+            tmp = []
+            for col in range(cols):
+                try:
+                    tmp.append(self.ui.MaintableWidget.item(row,col).text())
+                except:
+                    tmp.append('No data')
+            data.append(tmp)
+        for i in data: print(i)
                         
 
 
