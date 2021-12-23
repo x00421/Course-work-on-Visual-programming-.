@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\main.ui'
+# Form implementation generated from reading ui file 'main.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_Main(object):
-    def setupUi(self, Main):        
+    def setupUi(self, Main):
         Main.setObjectName("Main")
         Main.resize(960, 540)
         Main.setAutoFillBackground(False)
@@ -107,7 +107,7 @@ class Ui_Main(object):
         self.DopriceTextEdit.setFont(font)
         self.DopriceTextEdit.setObjectName("DopriceTextEdit")
         self.PoiskButton = QtWidgets.QPushButton(Main)
-        self.PoiskButton.setGeometry(QtCore.QRect(320, 490, 161, 31))
+        self.PoiskButton.setGeometry(QtCore.QRect(10, 490, 161, 31))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Black")
         font.setPointSize(12)
@@ -168,6 +168,26 @@ class Ui_Main(object):
         font.setWeight(75)
         self.AllButton.setFont(font)
         self.AllButton.setObjectName("AllButton")
+        self.DelButto = QtWidgets.QPushButton(Main)
+        self.DelButto.setGeometry(QtCore.QRect(450, 500, 161, 31))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI Black")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setItalic(True)
+        font.setWeight(75)
+        self.DelButto.setFont(font)
+        self.DelButto.setObjectName("DelButto")
+        self.AddButton = QtWidgets.QPushButton(Main)
+        self.AddButton.setGeometry(QtCore.QRect(620, 500, 161, 31))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI Black")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setItalic(True)
+        font.setWeight(75)
+        self.AddButton.setFont(font)
+        self.AddButton.setObjectName("AddButton")
 
         self.retranslateUi(Main)
         QtCore.QMetaObject.connectSlotsByName(Main)
@@ -185,3 +205,5 @@ class Ui_Main(object):
         self.TovarButton.setText(_translate("Main", "Реализация"))
         self.OtchetButton.setText(_translate("Main", "Отчет"))
         self.AllButton.setText(_translate("Main", "Вся"))
+        self.DelButto.setText(_translate("Main", "Удалить"))
+        self.AddButton.setText(_translate("Main", "Добавить"))

@@ -1,1 +1,2 @@
-self.ui.KatalogButton.clicked.connect(self.katalogwindow)
+
+sys.exit(app.exec())
