@@ -12,17 +12,12 @@ class Katalogwindow(QtWidgets.QMainWindow):
                 self.ui.setupUi(self)
                 
                 self.i = 2
-                self.c=10
+                self.c=25
                 self.katalog()
 
                 self.ui.PrevButton.clicked.connect(self.next)
+                self.ui.NextButton.clicked.connect(self.prev)
 
-               
-               
-               
-               
-                
-                
 
         def katalog(self):
                 book = openpyxl.open("baza.xlsx")
@@ -33,7 +28,8 @@ class Katalogwindow(QtWidgets.QMainWindow):
                 photo = sheet['I'+str(self.i)].value
                 price = sheet["F"+str(self.i)].value
 
-                self.ui.label.setText(name)
+                self.ui.textBrowser.setText(name)
+                self.ui.label_2.setText("Цена: "+str(price))
                 self.ui.Image.setPixmap(
                 QPixmap(photo))
                 
@@ -41,6 +37,18 @@ class Katalogwindow(QtWidgets.QMainWindow):
                 if self.i<self.c:
                         self.i += 1
                         self.katalog()
+                else:
+                        self.i = 2
+                        self.katalog()
+        def prev(self):
+                if self.i>2:
+                        self.i -= 1
+                        self.katalog()
+                else:
+                        self.i = self.c
+                        self.katalog()
+
+
         
                 
 

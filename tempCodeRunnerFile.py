@@ -1,2 +1,2 @@
 
-sys.exit(app.exec())
+                QPixmap(photo))
