@@ -54,6 +54,7 @@ class mywindow(QtWidgets.QMainWindow):
         
 
     def mainloaddata(self):  # Функция отображения таблицы без фильтра
+        
         global exellist
         exellist = 0
         book = openpyxl.open("baza.xlsx")
@@ -61,8 +62,11 @@ class mywindow(QtWidgets.QMainWindow):
 
         row = 0
         self.ui.MaintableWidget.setRowCount(sheet.max_row-1)
+        for i in range( sheet.max_row):
+            self.ui.MaintableWidget.showRow(i)
 
         for i in range(2, sheet.max_row+1):
+            
             name = sheet['A'+str(i)].value
             size = sheet["C"+str(i)].value
             price = sheet["F"+str(i)].value
@@ -78,54 +82,29 @@ class mywindow(QtWidgets.QMainWindow):
             row += 1
 
     def mainloaddata_man(self):  # Функция отображения таблицы для мужчин
-        global exellist
-        exellist = 1
         book = openpyxl.open("baza.xlsx")
-        sheet = book.worksheets[1]
-        count=0
+        sheet = book.worksheets[0]
+        for i in range( sheet.max_row):
+            self.ui.MaintableWidget.showRow(i)
+        
 
         row = 0
-       
-
-        self.ui.MaintableWidget.setRowCount(sheet.max_row-1)
-
         for i in range(2, sheet.max_row+1):
-            name = sheet['A'+str(i)].value
-            size = sheet["C"+str(i)].value
-            price = sheet["F"+str(i)].value
-            number = sheet["G"+str(i)].value
-            self.ui.MaintableWidget.setItem(
-                row, 0, QtWidgets.QTableWidgetItem(str(name)))
-            self.ui.MaintableWidget.setItem(
-                row, 1, QtWidgets.QTableWidgetItem(str(size)))
-            self.ui.MaintableWidget.setItem(
-                row, 2, QtWidgets.QTableWidgetItem(str(price)))
-            self.ui.MaintableWidget.setItem(
-                row, 3, QtWidgets.QTableWidgetItem(str(number)))
+            pol = sheet['J'+str(i)].value
+            if pol!="М":
+                self.ui.MaintableWidget.hideRow(row)
             row = row+1
 
     def mainloaddata_women(self):  # Функция отображения таблицы для Женщин
         book = openpyxl.open("baza.xlsx")
-        sheet = book.worksheets[2]
-        global exellist
-        exellist = 2
-
+        sheet = book.worksheets[0]
+        for i in range( sheet.max_row):
+            self.ui.MaintableWidget.showRow(i)
         row = 0
-        self.ui.MaintableWidget.setRowCount(sheet.max_row-1)
-
         for i in range(2, sheet.max_row+1):
-            name = sheet['A'+str(i)].value
-            size = sheet["C"+str(i)].value
-            price = sheet["F"+str(i)].value
-            number = sheet["G"+str(i)].value
-            self.ui.MaintableWidget.setItem(
-                row, 0, QtWidgets.QTableWidgetItem(str(name)))
-            self.ui.MaintableWidget.setItem(
-                row, 1, QtWidgets.QTableWidgetItem(str(size)))
-            self.ui.MaintableWidget.setItem(
-                row, 2, QtWidgets.QTableWidgetItem(str(price)))
-            self.ui.MaintableWidget.setItem(
-                row, 3, QtWidgets.QTableWidgetItem(str(number)))
+            pol = sheet['J'+str(i)].value
+            if pol!="Ж":
+                self.ui.MaintableWidget.hideRow(row)
             row = row+1
 
     def poisk(self):
@@ -133,6 +112,7 @@ class mywindow(QtWidgets.QMainWindow):
         size_p = self.ui.SizecomboBox.currentText()  # Получаем текст из комбобокса
         minprice = self.ui.OtpriceTextEdit.toPlainText()
         maxprice = self.ui.DopriceTextEdit.toPlainText()
+       
 
         if name_p == "":
             msg = QtWidgets.QMessageBox()
@@ -158,26 +138,27 @@ class mywindow(QtWidgets.QMainWindow):
                     ('Название', 'Размер', 'Цена', 'Остаток')
                 )
                 for i in range(2, sheet.max_row):
-                    name = sheet['A'+str(i)].value
-                    size = sheet["C"+str(i)].value
-                    price = sheet["F"+str(i)].value
-                    number = sheet["G"+str(i)].value
+                    name = self.ui.MaintableWidget.item(0,0).text()
+                    size = self.ui.MaintableWidget.item(i,1).text()
+                    price = self.ui.MaintableWidget.item(i,2).text()
+                    number = self.ui.MaintableWidget.item(i,3).text()
+                    print(name,size,price)
 
                     if size_p == "*":#Если пустое поле размера
-                        if maxprice == "":
-                            maxprice = 100000000
-                        if minprice == "":
-                            minprice = 0
-                        if (name_p in name) and (int(minprice) <= int(price) and int(maxprice) >= int(price)):
-                            self.ui.MaintableWidget.setItem(
-                                row, 0, QtWidgets.QTableWidgetItem(str(name)))
-                            self.ui.MaintableWidget.setItem(
-                                row, 1, QtWidgets.QTableWidgetItem(str(size)))
-                            self.ui.MaintableWidget.setItem(
-                                row, 2, QtWidgets.QTableWidgetItem(str(price)))
-                            self.ui.MaintableWidget.setItem(
-                                row, 3, QtWidgets.QTableWidgetItem(str(number)))
-                            row = row+1
+                            if maxprice == "":
+                                maxprice = 100000000
+                            if minprice == "":
+                                minprice = 0
+                            if (name_p in name) and (int(minprice) <= int(price) and int(maxprice) >= int(price)):
+                                self.ui.MaintableWidget.setItem(
+                                    row, 0, QtWidgets.QTableWidgetItem(str(name)))
+                                self.ui.MaintableWidget.setItem(
+                                    row, 1, QtWidgets.QTableWidgetItem(str(size)))
+                                self.ui.MaintableWidget.setItem(
+                                    row, 2, QtWidgets.QTableWidgetItem(str(price)))
+                                self.ui.MaintableWidget.setItem(
+                                    row, 3, QtWidgets.QTableWidgetItem(str(number)))
+                                row = row+1
                     else:#Если поле размера не пустое 
                         if maxprice == "" and minprice == "":#Если поле размера не пустое а цены пустые
                             if (name_p in name) and size == size_p:

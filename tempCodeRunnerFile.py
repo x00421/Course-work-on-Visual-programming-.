@@ -1,2 +1,0 @@
-
-                QPixmap(photo))
