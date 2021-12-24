@@ -22,7 +22,7 @@ class Katalogwindow(QtWidgets.QMainWindow):
         def katalog(self):
                 book = openpyxl.open("baza.xlsx")
                 sheet = book.worksheets[0]
-                self.c=sheet.max_row+1
+                self.c=sheet.max_row
 
                 name = sheet['A'+str(self.i)].value
                 photo = sheet['I'+str(self.i)].value
@@ -41,7 +41,7 @@ class Katalogwindow(QtWidgets.QMainWindow):
                         self.i = 2
                         self.katalog()
         def prev(self):
-                if self.i>2:
+                if self.i>3:
                         self.i -= 1
                         self.katalog()
                 else:

@@ -24,6 +24,7 @@ class Ui_katalog(object):
 "border: 3px solid black;\n"
 "backgroun-image:cover;")
         self.Image.setText("")
+        self.Image.setScaledContents(True)
         self.Image.setObjectName("Image")
         self.NextButton = QtWidgets.QPushButton(katalog)
         self.NextButton.setGeometry(QtCore.QRect(20, 410, 141, 41))

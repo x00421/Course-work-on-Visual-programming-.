@@ -1,10 +1,11 @@
 from PyQt5 import QtWidgets
+from openpyxl.worksheet import worksheet
 from main_ui import Ui_Main  # импорт нашего сгенерированного файла
 from katalog import show
 import sys
 import openpyxl
 import time
-
+import pandas as pd
 exellist = 0
 
 
@@ -41,6 +42,10 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.WomenButton.clicked.connect(self.mainloaddata_women)
         # Функция поиска
         self.ui.PoiskButton.clicked.connect(self.poisk)
+        
+
+
+        self.ui.DelButto.clicked.connect(self.delete)
 
 
         self.ui.KatalogButton.clicked.connect(lambda: show(self))
@@ -55,7 +60,7 @@ class mywindow(QtWidgets.QMainWindow):
         sheet = book.worksheets[0]
 
         row = 0
-        self.ui.MaintableWidget.setRowCount(sheet.max_row-2)
+        self.ui.MaintableWidget.setRowCount(sheet.max_row-1)
 
         for i in range(2, sheet.max_row+1):
             name = sheet['A'+str(i)].value
@@ -77,8 +82,11 @@ class mywindow(QtWidgets.QMainWindow):
         exellist = 1
         book = openpyxl.open("baza.xlsx")
         sheet = book.worksheets[1]
+        count=0
 
         row = 0
+       
+
         self.ui.MaintableWidget.setRowCount(sheet.max_row-1)
 
         for i in range(2, sheet.max_row+1):
@@ -219,10 +227,29 @@ class mywindow(QtWidgets.QMainWindow):
         for i in data: print(i)
 
     def delete(self):
-        x=self.ui.MaintableWidget.selectedIndexes()
+        row ="*"
+        row=self.ui.MaintableWidget.currentRow() #Получение нужной строки
         
-        print(x)
-                        
+        if row =="*":
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowTitle("Ошибка!")
+            msg.setText("Выберите строку!")
+            msg.setIcon(QtWidgets.QMessageBox.Warning)
+            msg.exec_()
+        else:
+            del_name=self.ui.MaintableWidget.item(row,1).text()
+            filename="baza.xlsx"
+            book = openpyxl.load_workbook(filename=filename)
+            sheet :worksheet= book.worksheets[0]
+            sheet.delete_rows(row+2)
+            book.save(filename)
+            print(row)
+            self.mainloaddata()
+
+    
+    
+
+                       
 
 
 app = QtWidgets.QApplication([])
