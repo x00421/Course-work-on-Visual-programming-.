@@ -53,6 +53,6 @@ class Katalogwindow(QtWidgets.QMainWindow):
                 
 
 
-def show(app):
+def showkatalog(app):
     application = Katalogwindow(app)
     application.show()

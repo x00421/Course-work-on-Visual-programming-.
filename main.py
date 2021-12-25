@@ -1,7 +1,12 @@
 from PyQt5 import QtWidgets
+from PyQt5 import QtCore, QtGui
 from openpyxl.worksheet import worksheet
 from main_ui import Ui_Main  # импорт нашего сгенерированного файла
-from katalog import show
+
+from katalog import showkatalog
+
+from AddNewPosition import showAddNewPosition
+
 import sys
 import openpyxl
 import time
@@ -43,12 +48,15 @@ class mywindow(QtWidgets.QMainWindow):
         # Функция поиска
         self.ui.PoiskButton.clicked.connect(self.poisk)
         
-
+        self.ui.OtpriceTextEdit.setValidator(QtGui.QIntValidator())
+        self.ui.DopriceTextEdit.setValidator(QtGui.QIntValidator())
 
         self.ui.DelButto.clicked.connect(self.delete)
 
+        self.ui.AddButton.clicked.connect(lambda: showAddNewPosition(self))
 
-        self.ui.KatalogButton.clicked.connect(lambda: show(self))
+
+        self.ui.KatalogButton.clicked.connect(lambda: showkatalog(self))
 
         
         
@@ -115,8 +123,8 @@ class mywindow(QtWidgets.QMainWindow):
     def poisk(self):
         name_p = self.ui.NameEdit.toPlainText()  # Получаем текст из строкиввода
         size_p = self.ui.SizecomboBox.currentText()  # Получаем текст из комбобокса
-        minprice = self.ui.OtpriceTextEdit.toPlainText()
-        maxprice = self.ui.DopriceTextEdit.toPlainText()
+        minprice = self.ui.OtpriceTextEdit.text()
+        maxprice = self.ui.DopriceTextEdit.text()
         global  pol_global
        
 
@@ -151,7 +159,7 @@ class mywindow(QtWidgets.QMainWindow):
                     price = self.ui.MaintableWidget.item(i,2).text()
                     number = self.ui.MaintableWidget.item(i,3).text()
                     pol = sheet['J'+str(i)].value
-                    print(name,size,price,pol,pol_global)
+                    
                     
 
                     if size_p == "*":#Если пустое поле размера
