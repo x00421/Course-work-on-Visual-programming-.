@@ -56,11 +56,13 @@ class mywindow(QtWidgets.QMainWindow):
 
         self.ui.DelButto.clicked.connect(self.delete)
 
+        
         self.ui.AddButton.clicked.connect(lambda: showAddNewPosition(self))
         self.ui.ProdagaButton.clicked.connect(self.prodaga)
         self.ui.KatalogButton.clicked.connect(lambda: showkatalog(self))
         self.ui.TovarButton_2.clicked.connect(lambda: showvozvrat(self))
         self.ui.OtchetButton.clicked.connect(lambda:showOtchet(self))
+        self.ui.MaintableWidget.clicked.connect(self. vizual)
 
    
 
@@ -281,6 +283,14 @@ class mywindow(QtWidgets.QMainWindow):
             
             self.mainloaddata()
 
+    def vizual(self):
+        row=self.ui.MaintableWidget.currentRow()
+        i=int(self.ui.MaintableWidget.item(row,3).text())
+        if i>15:
+            i=15
+        self.ui.progressBar.setValue(i)
+
+        print(0)
 
     
 

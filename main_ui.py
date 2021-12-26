@@ -199,6 +199,12 @@ class Ui_Main(object):
         self.TovarButton_2.setFont(font)
         self.TovarButton_2.setAutoExclusive(False)
         self.TovarButton_2.setObjectName("TovarButton_2")
+        self.progressBar = QtWidgets.QProgressBar(Main)
+        self.progressBar.setGeometry(QtCore.QRect(820, 120, 118, 23))
+        self.progressBar.setMaximum(15)
+        self.progressBar.setProperty("value", 3)
+        self.progressBar.setFormat("")
+        self.progressBar.setObjectName("progressBar")
 
         self.retranslateUi(Main)
         QtCore.QMetaObject.connectSlotsByName(Main)

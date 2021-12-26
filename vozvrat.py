@@ -4,6 +4,7 @@ import sys
 from PyQt5.QtGui import QPixmap
 import openpyxl
 from openpyxl.worksheet import worksheet
+from prichina import showPrichina
 
 
 class Vozvratwindow(QtWidgets.QMainWindow):
@@ -81,6 +82,8 @@ class Vozvratwindow(QtWidgets.QMainWindow):
                     book.save(filename)
                     self.mainloaddata()
                     return
+            
+            
            
                
 
@@ -104,6 +107,7 @@ class Vozvratwindow(QtWidgets.QMainWindow):
             sheet["F"+str((row_brak+2))].value=str("0")
             book.save(filename)
             self.mainloaddata()
+            
                
         def sorttable(self):
             filename="baza.xlsx"
