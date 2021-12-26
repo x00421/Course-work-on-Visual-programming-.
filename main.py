@@ -3,9 +3,11 @@ from PyQt5 import QtCore, QtGui
 from openpyxl.worksheet import worksheet
 from main_ui import Ui_Main  # импорт нашего сгенерированного файла
 
+
 from katalog import showkatalog
 
 from AddNewPosition import showAddNewPosition
+from prodaga import showprodaga
 
 import sys
 import openpyxl
@@ -54,12 +56,10 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.DelButto.clicked.connect(self.delete)
 
         self.ui.AddButton.clicked.connect(lambda: showAddNewPosition(self))
-
-
+        self.ui.ProdagaButton.clicked.connect(self.prodaga)
         self.ui.KatalogButton.clicked.connect(lambda: showkatalog(self))
 
-        
-        
+   
 
     def mainloaddata(self):  # Функция отображения таблицы без фильтра
         
@@ -206,18 +206,16 @@ class mywindow(QtWidgets.QMainWindow):
         for i in data: print(i)
 
     def delete(self):
-        row ="*"
+       
         row=self.ui.MaintableWidget.currentRow() #Получение нужной строки
         
-        if row =="*":
+        if row ==-1:
             msg = QtWidgets.QMessageBox()
             msg.setWindowTitle("Ошибка!")
             msg.setText("Выберите строку!")
             msg.setIcon(QtWidgets.QMessageBox.Warning)
             msg.exec_()
         else:
-            del_name=self.ui.MaintableWidget.item(row,0).text()
-            print(del_name)
             filename="baza.xlsx"
             book = openpyxl.load_workbook(filename=filename)
             sheet :worksheet= book.worksheets[0]
@@ -226,7 +224,58 @@ class mywindow(QtWidgets.QMainWindow):
             print(row)
             self.mainloaddata()
 
-    
+    def prodaga(self):
+        row_prodaga=self.ui.MaintableWidget.currentRow() 
+        print(row_prodaga)
+        if row_prodaga ==-1:
+            msg = QtWidgets.QMessageBox()
+            msg.setWindowTitle("Ошибка!")
+            msg.setText("Выберите строку!")
+            msg.setIcon(QtWidgets.QMessageBox.Warning)
+            msg.exec_()
+        else:
+            filename="baza.xlsx"
+            book = openpyxl.load_workbook(filename=filename)
+            sheet :worksheet= book.worksheets[0]
+            name = sheet['A'+str(row_prodaga+2)].value
+            cod=sheet['B'+str(row_prodaga+2)].value
+            size = sheet["C"+str(row_prodaga+2)].value
+            proizv=sheet['D'+str(row_prodaga+2)].value
+            postav=sheet['E'+str(row_prodaga+2)].value
+            price = sheet["F"+str(row_prodaga+2)].value
+            number = sheet["G"+str(row_prodaga+2)].value
+            date=sheet['H'+str(row_prodaga+2)].value
+            photo=sheet['I'+str(row_prodaga+2)].value
+            pol=sheet['J'+str(row_prodaga+2)].value
+            if int(number)>0:
+                sheet["G"+str((row_prodaga+2))].value=str(int(sheet["G"+str((row_prodaga+2))].value)-1)
+                number=1
+                sheet :worksheet= book.worksheets[1]
+                sheet.insert_rows(2)
+                sheet["A2"].value=str(name)
+                sheet["B2"].value=str(cod)
+                sheet["C2"].value=str(size)
+                sheet["D2"].value=str(proizv)
+                sheet["E2"].value=str(postav)
+                sheet["F2"].value=str(price)
+                sheet["G2"].value=str(number)
+                sheet["H2"].value=str(date)
+                sheet["I2"].value=str(photo)
+                sheet["J2"].value=str(pol)
+            else:
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle("Ошибка!")
+                msg.setText("Товар закончился")
+                msg.setIcon(QtWidgets.QMessageBox.Warning)
+                msg.exec_()
+
+
+
+            book.save(filename)
+            
+            self.mainloaddata()
+
+
     
 
                        
