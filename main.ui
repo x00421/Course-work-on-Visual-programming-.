@@ -214,7 +214,7 @@
     <string>Каталог</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="TovarButton">
+  <widget class="QPushButton" name="ProdagaButton">
    <property name="geometry">
     <rect>
      <x>810</x>
@@ -233,7 +233,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Реализация</string>
+    <string>Продать</string>
    </property>
    <property name="autoExclusive">
     <bool>false</bool>
@@ -381,6 +381,31 @@
      <italic>false</italic>
      <bold>true</bold>
     </font>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="TovarButton_2">
+   <property name="geometry">
+    <rect>
+     <x>810</x>
+     <y>260</y>
+     <width>141</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Black</family>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <italic>true</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Принять</string>
+   </property>
+   <property name="autoExclusive">
+    <bool>false</bool>
    </property>
   </widget>
  </widget>

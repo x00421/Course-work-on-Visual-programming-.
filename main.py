@@ -153,13 +153,13 @@ class mywindow(QtWidgets.QMainWindow):
                 self.ui.MaintableWidget.setHorizontalHeaderLabels(
                     ('Название', 'Размер', 'Цена', 'Остаток')
                 )
-                for i in range(2, sheet.max_row-1):
-                    name = self.ui.MaintableWidget.item(i,0).text()
-                    size = self.ui.MaintableWidget.item(i,1).text()
-                    price = self.ui.MaintableWidget.item(i,2).text()
-                    number = self.ui.MaintableWidget.item(i,3).text()
+                for i in range(2, sheet.max_row):
+                    name = self.ui.MaintableWidget.item(i-2,0).text()
+                    size = self.ui.MaintableWidget.item(i-2,1).text()
+                    price = self.ui.MaintableWidget.item(i-2,2).text()
+                    number = self.ui.MaintableWidget.item(i-2,3).text()
                     pol = sheet['J'+str(i)].value
-                    
+                    print(name)
                     
 
                     if size_p == "*":#Если пустое поле размера
@@ -168,13 +168,13 @@ class mywindow(QtWidgets.QMainWindow):
                             if minprice == "":
                                 minprice = 0
                             if (name_p in name)and(pol in pol_global) and ((int(minprice) <= int(price)) and (int(maxprice) >= int(price))):
-                                self.ui.MaintableWidget.showRow(i)
+                                self.ui.MaintableWidget.showRow(i-2)
                                 row = row+1
 
                     else:#Если поле размера не пустое 
                         if maxprice == "" and minprice == "":#Если поле размера не пустое а цены пустые
                             if (name_p in name) and size == size_p and (pol in pol_global):
-                                self.ui.MaintableWidget.showRow(i)
+                                self.ui.MaintableWidget.showRow(i-2)
                                 row = row+1
                         else:
                             if maxprice == "":
@@ -182,7 +182,7 @@ class mywindow(QtWidgets.QMainWindow):
                             if minprice == "":
                                 minprice = 0
                             if (name_p in name)  and (pol in pol_global) and (size == size_p) and ((int(minprice) <= int(price)) and (int(maxprice) >= int(price))):
-                                self.ui.MaintableWidget.showRow(i)
+                                self.ui.MaintableWidget.showRow(i-2)
                                 row = row+1
 
     def getData(self):#Функция получения информации из таблицы

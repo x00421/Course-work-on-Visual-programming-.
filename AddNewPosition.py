@@ -46,9 +46,6 @@ class AddNewPosition(QtWidgets.QMainWindow):
 
         self.ui.AddImageButton.clicked.connect(self.openFileNameDialog)
         self.ui.AddButton.clicked.connect(self.add)
-
-        
-        
     
     def openFileNameDialog(self):
         global photo
@@ -83,7 +80,7 @@ class AddNewPosition(QtWidgets.QMainWindow):
             sheet["E2"].value=str(self.ui.PostavcomboBox.currentText())
             sheet["F2"].value=str(self.ui.PricelineEdit.text())
             sheet["G2"].value=str(self.ui.NumberspinBox.value())
-            sheet["H2"].value=str(self.ui.dateEdit.date())
+            sheet["H2"].value=str(self.ui.dateEdit.date().toString("dd.MM.yyyy"))
             sheet["I2"].value=str(photo)
             sheet["J2"].value=str(self.ui.PolcomboBox.currentText())
             book.save(filename)
@@ -99,4 +96,4 @@ class AddNewPosition(QtWidgets.QMainWindow):
 def showAddNewPosition(app):
     application = AddNewPosition(app)
     application.show()
-    
+  
