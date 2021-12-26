@@ -3,11 +3,12 @@ from PyQt5 import QtCore, QtGui
 from openpyxl.worksheet import worksheet
 from main_ui import Ui_Main  # импорт нашего сгенерированного файла
 
-
+import datetime
 from katalog import showkatalog
 
 from AddNewPosition import showAddNewPosition
-from prodaga import showprodaga
+from vozvrat import showvozvrat
+from otchet import showOtchet
 
 import sys
 import openpyxl
@@ -58,6 +59,8 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.AddButton.clicked.connect(lambda: showAddNewPosition(self))
         self.ui.ProdagaButton.clicked.connect(self.prodaga)
         self.ui.KatalogButton.clicked.connect(lambda: showkatalog(self))
+        self.ui.TovarButton_2.clicked.connect(lambda: showvozvrat(self))
+        self.ui.OtchetButton.clicked.connect(lambda:showOtchet(self))
 
    
 
@@ -244,7 +247,8 @@ class mywindow(QtWidgets.QMainWindow):
             postav=sheet['E'+str(row_prodaga+2)].value
             price = sheet["F"+str(row_prodaga+2)].value
             number = sheet["G"+str(row_prodaga+2)].value
-            date=sheet['H'+str(row_prodaga+2)].value
+            date=datetime.datetime.now()
+            date.strftime("%Y,%m,%d")
             photo=sheet['I'+str(row_prodaga+2)].value
             pol=sheet['J'+str(row_prodaga+2)].value
             if int(number)>0:
@@ -259,9 +263,11 @@ class mywindow(QtWidgets.QMainWindow):
                 sheet["E2"].value=str(postav)
                 sheet["F2"].value=str(price)
                 sheet["G2"].value=str(number)
-                sheet["H2"].value=str(date)
+                sheet["H2"].value=date.strftime("%Y,%m,%d")
                 sheet["I2"].value=str(photo)
                 sheet["J2"].value=str(pol)
+                sheet["K2"].value=str("П")
+
             else:
                 msg = QtWidgets.QMessageBox()
                 msg.setWindowTitle("Ошибка!")

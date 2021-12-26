@@ -72,6 +72,15 @@ class AddNewPosition(QtWidgets.QMainWindow):
             filename="baza.xlsx"
             book = openpyxl.load_workbook(filename=filename)
             sheet :worksheet= book.worksheets[0]
+            for i in range(2,sheet.max_row):
+                if self.ui.KodlineEdit.text()==str(sheet['B'+str(i)].value):
+                    msg = QtWidgets.QMessageBox()
+                    msg.setWindowTitle("Ошибка!")
+                    msg.setText("Код товара должен быть уникален!")
+                    msg.setIcon(QtWidgets.QMessageBox.Warning)
+                    msg.exec_()
+                    return
+                
             sheet.insert_rows(2)
             sheet["A2"].value=str(self.ui.NametextEdit.toPlainText())
             sheet["B2"].value=str(self.ui.KodlineEdit.text())
@@ -80,7 +89,8 @@ class AddNewPosition(QtWidgets.QMainWindow):
             sheet["E2"].value=str(self.ui.PostavcomboBox.currentText())
             sheet["F2"].value=str(self.ui.PricelineEdit.text())
             sheet["G2"].value=str(self.ui.NumberspinBox.value())
-            sheet["H2"].value=str(self.ui.dateEdit.date().toString("dd.MM.yyyy"))
+            #sheet["H2"].value=str(self.ui.dateEdit.date().toString("dd.MM.yyyy"))
+            sheet["H2"].value=str(self.ui.dateEdit.date().toString("yyyy,M,d"))
             sheet["I2"].value=str(photo)
             sheet["J2"].value=str(self.ui.PolcomboBox.currentText())
             book.save(filename)
