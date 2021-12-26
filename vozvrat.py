@@ -53,33 +53,53 @@ class Vozvratwindow(QtWidgets.QMainWindow):
                 row += 1
         
         def vozvrat(self):
-            row_vozvrat=self.ui.MaintableWidget.currentRow()      
+                 
             filename="baza.xlsx"
             book = openpyxl.load_workbook(filename=filename)
             sheet :worksheet= book.worksheets[1]
-            sheet["K"+str((row_vozvrat+2))].value=str("В")
+            row_vozvrat=self.ui.MaintableWidget.currentRow()
+            print(row_vozvrat,"Возврат") 
+
+            if sheet["K"+str((row_vozvrat+2))].value=="В":
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle("Ошибка!")
+                msg.setText("У товара был такой же статус!")
+                msg.setIcon(QtWidgets.QMessageBox.Warning)
+                msg.exec_()
+                return
+
+            sheet["K"+str((int(row_vozvrat)+2))].value=str("В")
             sheet["F"+str((row_vozvrat+2))].value=str("0")
-            #Вернём наличие товара в базу
             cod_vozvrata=sheet["B"+str((row_vozvrat+2))].value
-            print(cod_vozvrata, "-cod_vozvrata")
+
             sheet1 :worksheet= book.worksheets[0]
-            for i in range(2,sheet.max_row):
-                if sheet1["B"+str((row_vozvrat+2))].value==cod_vozvrata:
-                    nalich=int(sheet1["G"+str((row_vozvrat+2))].value)
-                    sheet1["G"+str((row_vozvrat+2))].value=str(nalich+1)
-                    print(sheet1["G"+str((row_vozvrat+2))].value)
+            for i in range(2, sheet1.max_row):
+                if str(sheet1["B"+str((i))].value)==str(cod_vozvrata):
+                    nalich=int(sheet1["G"+str((i))].value)
+                    sheet1["G"+str((i))].value=str(nalich+1)
+                    print(sheet1["G"+str((i))].value)
                     book.save(filename)
                     self.mainloaddata()
                     return
-            
+           
                
 
         def brak(self):
-            row_brak=self.ui.MaintableWidget.currentRow()
-            print(row_brak)  
+           
             filename="baza.xlsx"
             book = openpyxl.load_workbook(filename=filename)
             sheet :worksheet= book.worksheets[1]
+            row_brak=self.ui.MaintableWidget.currentRow()
+
+            print(row_brak)  
+
+            if sheet["K"+str((row_brak+2))].value=="Б":
+                msg = QtWidgets.QMessageBox()
+                msg.setWindowTitle("Ошибка!")
+                msg.setText("У товара был такой же статус!")
+                msg.setIcon(QtWidgets.QMessageBox.Warning)
+                msg.exec_()
+                return
             sheet["K"+str((row_brak+2))].value=str("Б")
             sheet["F"+str((row_brak+2))].value=str("0")
             book.save(filename)
@@ -93,7 +113,7 @@ class Vozvratwindow(QtWidgets.QMainWindow):
             for i in range( sheet.max_row):
                     self.ui.MaintableWidget.hideRow(i)
 
-            for i in range(2, sheet.max_row):
+            for i in range(2, sheet.max_row+1):
                 
                     name = self.ui.MaintableWidget.item(i-2,0).text()
                     size = self.ui.MaintableWidget.item(i-2,1).text()
